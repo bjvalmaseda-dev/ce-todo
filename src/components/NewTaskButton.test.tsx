@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
-import NewNoteButton from "./NewNoteButton";
+import NewTaskButton from "./NewTaskButton";
 
-describe("<NewNoteButton/>", () => {
+describe("<NewTaskButton/>", () => {
   const actionMock = jest.fn();
   const setup = () => {
-    render(<NewNoteButton action={actionMock} />);
+    render(<NewTaskButton action={actionMock} />);
   };
   beforeEach(() => {
     setup();

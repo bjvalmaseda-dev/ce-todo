@@ -6,6 +6,7 @@ describe("<ActionButton/>", () => {
   const props = {
     label: "Action",
     container: true,
+    icon: <div>icon</div>,
   };
 
   describe("is render with", () => {

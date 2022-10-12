@@ -5,7 +5,7 @@ interface Props {
   action: () => void;
 }
 
-const NewNoteButton: React.FC<Props> = ({ action }) => {
+const NewTaskButton: React.FC<Props> = ({ action }) => {
   return (
     <div className="flex items-center">
       <FiPlusSquare className="text-blue-500" />
@@ -16,4 +16,4 @@ const NewNoteButton: React.FC<Props> = ({ action }) => {
   );
 };
 
-export default NewNoteButton;
+export default NewTaskButton;
