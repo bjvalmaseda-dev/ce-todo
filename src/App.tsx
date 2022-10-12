@@ -3,27 +3,20 @@ import NewTaskButton from "./components/NewTaskButton";
 import TaskForm from "./components/TaskForm";
 import NoteList from "./components/TaskList";
 import useAppContext from "./hooks/useAppContext";
-import { ITask } from "./types";
-
-const initNotes: ITask[] = [];
 
 const App: React.FC = () => {
-  const [isAdding, setIsAdding] = useState<boolean>(false);
   const {
-    state: { tasks },
+    state: { tasks, creating },
+    dispatch,
   } = useAppContext();
 
   const handleAdd = () => {
-    setIsAdding(true);
+    dispatch({ type: "SET_CREATING", payload: true });
   };
 
   return (
     <div className="container mx-auto my-4">
-      {isAdding ? (
-        <TaskForm setIsAdding={setIsAdding} />
-      ) : (
-        <NewTaskButton action={handleAdd} />
-      )}
+      {creating ? <TaskForm /> : <NewTaskButton action={handleAdd} />}
       <NoteList tasks={tasks} />
     </div>
   );

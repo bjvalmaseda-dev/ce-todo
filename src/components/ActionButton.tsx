@@ -5,6 +5,7 @@ interface Props {
   icon: JSX.Element;
   container?: boolean;
   disabled?: boolean;
+  action?: () => void;
 }
 
 const ActionButton: React.FC<Props> = ({
@@ -12,6 +13,7 @@ const ActionButton: React.FC<Props> = ({
   icon,
   container = false,
   disabled = false,
+  action = () => {},
 }) => {
   const statusClass = disabled
     ? " text-gray-400 cursor-not-allowed"
@@ -19,6 +21,7 @@ const ActionButton: React.FC<Props> = ({
 
   return (
     <button
+      onClick={action}
       className={`${statusClass}  ${
         container ? "bg-gray-300" : null
       } flex border rounded px-3 py-1 items-center space-x-2 mr-2`}

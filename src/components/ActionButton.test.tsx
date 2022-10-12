@@ -1,12 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import ActionButton from "./ActionButton";
+import userEvent from "@testing-library/user-event";
 
 describe("<ActionButton/>", () => {
   const props = {
     label: "Action",
     container: true,
     icon: <div>icon</div>,
+    action: jest.fn(),
   };
 
   describe("is render with", () => {
@@ -14,16 +16,22 @@ describe("<ActionButton/>", () => {
       render(<ActionButton {...props} />);
     };
 
+    let el: HTMLButtonElement;
     beforeEach(() => {
       setup();
+      el = screen.getByRole("button");
     });
     it("is render with a label", () => {
       screen.getByText(props.label);
     });
 
     it("is render with a color if is container", () => {
-      const el = screen.getByRole("button");
       expect(el).toHaveClass("bg-gray-300");
+    });
+
+    it("execute a action when is clicked", () => {
+      userEvent.click(el);
+      expect(props.action).toHaveBeenCalledTimes(1);
     });
   });
 

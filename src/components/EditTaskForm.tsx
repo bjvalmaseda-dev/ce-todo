@@ -6,16 +6,19 @@ import {
   FiUnlock as PublicIcon,
   FiLoader as NormalIcon,
   FiStopCircle as EstimationIcon,
-  FiPlus,
   FiX,
+  FiSave,
+  FiTrash2,
 } from "react-icons/fi";
 import useAppContext from "../hooks/useAppContext";
+import { ITask } from "../types";
 import ActionButton from "./ActionButton";
 
 type Button = {
   label: string;
   icon: JSX.Element;
   container?: boolean;
+  action?: () => void;
 };
 
 const buttons: Button[] = [
@@ -40,26 +43,34 @@ const buttons: Button[] = [
     label: "Estimation",
     icon: <EstimationIcon />,
   },
+  {
+    label: "Remove",
+    icon: <FiTrash2 />,
+  },
 ];
 
-const TaskForm: React.FC = () => {
-  const [newNote, setNewNote] = useState("");
+interface Props {
+  task: ITask;
+}
+const EditTaskForm: React.FC<Props> = ({ task }) => {
+  const [editTask, setEditTask] = useState(task.content);
   const { dispatch } = useAppContext();
+
+  const isEdited = task.content !== editTask;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newNote) {
-      dispatch({
-        type: "ADD_TASK",
-        payload: { content: newNote, id: Number(Date.now()) },
-      });
-    }
+    isEdited &&
+      dispatch({ type: "EDIT_TASK", payload: { ...task, content: editTask } });
     handleCancel();
   };
 
   const handleCancel = () => {
-    setNewNote("");
-    dispatch({ type: "SET_CREATING", payload: false });
+    dispatch({ type: "SET_TASK_TO_EDIT", payload: -1 });
+  };
+
+  const handleRemove = () => {
+    dispatch({ type: "REMOVE_TASK", payload: task.id });
   };
 
   return (
@@ -72,7 +83,8 @@ const TaskForm: React.FC = () => {
               type="text"
               placeholder="Type to add new task"
               className="focus:outline-none ml-2 w-5/6"
-              onChange={(e) => setNewNote(e.target.value)}
+              value={editTask}
+              onChange={(e) => setEditTask(e.target.value)}
             />
           </div>
         </div>
@@ -82,26 +94,20 @@ const TaskForm: React.FC = () => {
               <ActionButton
                 key={`button-${btn.label}`}
                 {...btn}
-                disabled={newNote === "" ? true : false}
+                disabled={editTask === "" ? true : false}
               />
             ))}
+            <ActionButton
+              label="Remove"
+              icon={<FiTrash2 />}
+              action={handleRemove}
+            />
             <div className="ml-auto flex">
               <button
-                onClick={handleCancel}
-                className="hidden xl:flex border rounded px-3 py-1 text-gray-600 mr-2 ml-auto bg-gray-200 cursor-pointer"
-              >
-                Cancel
-              </button>
-              <button
                 type="submit"
-                className="flex border rounded px-3 py-1 text-white mr-2 ml-auto bg-blue-500"
+                className="flex border rounded p-2 text-white mr-2 ml-auto bg-blue-500"
               >
-                <span className="add-button hidden xl:block">
-                  {newNote ? "Add" : "OK"}
-                </span>
-                <span className="xl:hidden">
-                  {newNote ? <FiPlus /> : <FiX />}
-                </span>
+                {isEdited ? <FiSave /> : <FiX />}
               </button>
             </div>
           </div>
@@ -111,4 +117,4 @@ const TaskForm: React.FC = () => {
   );
 };
 
-export default TaskForm;
+export default EditTaskForm;

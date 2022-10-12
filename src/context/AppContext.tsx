@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import { Action, AppState } from "../types";
 import { taskReducer } from "./Reducer";
 
@@ -18,6 +18,8 @@ const initialState: AppState = {
       id: 13,
     },
   ],
+  editingTask: -1,
+  creating: false,
 };
 
 export const AppCtx = createContext<IAppCtx>({
