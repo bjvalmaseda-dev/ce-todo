@@ -7,16 +7,11 @@ import useAppContext from "./hooks/useAppContext";
 const App: React.FC = () => {
   const {
     state: { tasks, creating },
-    dispatch,
   } = useAppContext();
-
-  const handleAdd = () => {
-    dispatch({ type: "SET_CREATING", payload: true });
-  };
 
   return (
     <div className="container mx-auto my-4">
-      {creating ? <TaskForm /> : <NewTaskButton action={handleAdd} />}
+      {creating ? <TaskForm /> : <NewTaskButton />}
       <NoteList tasks={tasks} />
     </div>
   );

@@ -31,7 +31,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
   };
 
   return (
-    <form onSubmit={handleEdit}>
+    <form onSubmit={handleEdit} className="-mx-2 my-3">
       <div className="shadow-md">
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">

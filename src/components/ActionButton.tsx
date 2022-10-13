@@ -21,6 +21,7 @@ const ActionButton: React.FC<Props> = ({
 
   return (
     <button
+      type="button"
       onClick={action}
       className={`${statusClass}  ${
         container ? "bg-gray-300" : null

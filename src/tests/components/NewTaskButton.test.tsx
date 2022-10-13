@@ -6,7 +6,7 @@ import NewTaskButton from "./../../components/NewTaskButton";
 describe("<NewTaskButton/>", () => {
   const actionMock = jest.fn();
   const setup = () => {
-    render(<NewTaskButton action={actionMock} />);
+    render(<NewTaskButton />);
   };
   beforeEach(() => {
     setup();
@@ -19,6 +19,5 @@ describe("<NewTaskButton/>", () => {
   it("dispatch an action when user click", () => {
     const el = screen.getByText("Type to add new task");
     userEvent.click(el);
-    expect(actionMock).toHaveBeenCalledTimes(1);
   });
 });

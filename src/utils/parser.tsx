@@ -2,42 +2,42 @@ import { FiMail, FiLink } from "react-icons/fi";
 
 const dictionary = {
   mail: (mail: string) => (
-    <a
-      href={`mailto:${mail}`}
+    <span
+      onClick={(e) => e.stopPropagation()}
       className="bg-orange-200 text-orange-500 inline-flex items-center px-1 rounded-lg mx-1"
       title={`Send email to ${mail}`}
     >
       <FiMail />
       Mail
-    </a>
+    </span>
   ),
   link: (link: string) => (
-    <a
-      href={`http:${link}`}
-      className="bg-blue-200 text-blue-500 inline-flex items-center px-1 rounded-lg mx-1"
+    <span
+      onClick={(e) => e.stopPropagation()}
+      className="bg-blue-200 text-blue-500 inline-flex items-center px-1 rounded-lg mx-1 cursor-pointer"
       title={link}
     >
       <FiLink />
       Link
-    </a>
+    </span>
   ),
   mention: (metion: string) => (
-    <a
-      href="http://localhost:3000"
-      className="bg-green-200 text-green-500 inline-flex items-center px-1 rounded-lg mx-1"
+    <span
+      onClick={(e) => e.stopPropagation()}
+      className="bg-green-200 text-green-500 inline-flex items-center px-1 rounded-lg mx-1 cursor-pointer"
       title={metion}
     >
       {metion}
-    </a>
+    </span>
   ),
   hashtag: (hashtag: string) => (
-    <a
-      href="!"
-      className="bg-purple-200 text-purple-500 inline-flex items-center px-1 rounded-lg mx-1"
+    <span
+      onClick={(e) => e.stopPropagation()}
+      className="bg-purple-200 text-purple-500 inline-flex items-center px-1 rounded-lg mx-1 cursor-pointer"
       title={hashtag}
     >
       {hashtag}
-    </a>
+    </span>
   ),
 };
 

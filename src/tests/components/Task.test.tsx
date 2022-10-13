@@ -20,18 +20,10 @@ describe("<Task/>", () => {
     };
     render(<Task task={task} />);
 
-    const email = screen.getByRole("link", {
-      name: `Send email to test@example.com`,
-    });
-    const mention = screen.getByRole("link", {
-      name: `@mention`,
-    });
-    const link = screen.getByRole("link", {
-      name: `www.link.test`,
-    });
-    const hashtag = screen.getByRole("link", {
-      name: `#hashtag`,
-    });
+    const email = screen.getByText("Mail");
+    const mention = screen.getByText("@mention");
+    const link = screen.getByText("Link");
+    const hashtag = screen.getByText("#hashtag");
 
     expect(email).toHaveClass("bg-orange-200 text-orange-500");
     expect(link).toHaveClass("bg-blue-200 text-blue-500");
