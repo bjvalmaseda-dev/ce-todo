@@ -31,13 +31,18 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
   };
 
   return (
-    <form onSubmit={handleEdit} className="-mx-2 my-3">
+    <form
+      onSubmit={handleEdit}
+      className="-mx-2 my-3"
+      data-testid="edit-task-form"
+    >
       <div className="shadow-md">
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
             <AddIcon className="text-blue-500" />
             <div className="ml-2 w-5/6">
               <HighlightWithinTextarea
+                data-testid="test"
                 value={editTask}
                 onChange={(value) => setEditTask(value)}
                 placeholder="Type to add new task"

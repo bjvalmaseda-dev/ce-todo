@@ -25,7 +25,7 @@ const TaskForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-testid="add-task-form">
       <div className="shadow-md">
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
@@ -50,15 +50,15 @@ const TaskForm: React.FC = () => {
             <div className="ml-auto flex">
               <button
                 onClick={handleCancel}
-                className="hidden xl:flex border rounded px-3 py-1 text-gray-600 mr-2 ml-auto bg-gray-200 cursor-pointer"
+                className="hidden xl:flex border rounded p-2 text-gray-600 mr-2 ml-auto bg-gray-200 cursor-pointer items-center"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex border rounded px-3 py-1 text-white mr-2 ml-auto bg-blue-500"
+                className="flex border rounded p-2 text-white mr-2 ml-auto bg-blue-500 items-center"
               >
-                <span className="add-button hidden xl:block">
+                <span className="hidden xl:block">
                   {newNote ? "Add" : "OK"}
                 </span>
                 <span className="xl:hidden">
