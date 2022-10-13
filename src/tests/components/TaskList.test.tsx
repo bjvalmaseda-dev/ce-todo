@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import TaskList from "./TaskList";
-import { ITask } from "../types";
+import TaskList from "./../../components/TaskList";
+import { ITask } from "../../types";
 
 describe("<NoteList/>", () => {
   it("can be render a list of task", () => {

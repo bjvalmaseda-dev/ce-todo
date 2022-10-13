@@ -1,26 +1,28 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import ActionButton from "./ActionButton";
+import ActionButton from "../../components/ActionButton";
 import userEvent from "@testing-library/user-event";
 
 describe("<ActionButton/>", () => {
   const props = {
     label: "Action",
     container: true,
-    icon: <div>icon</div>,
+    icon: <div>Icon</div>,
     action: jest.fn(),
   };
 
   describe("is render with", () => {
+    let el: HTMLButtonElement;
+
     const setup = () => {
       render(<ActionButton {...props} />);
     };
 
-    let el: HTMLButtonElement;
     beforeEach(() => {
       setup();
       el = screen.getByRole("button");
     });
+
     it("is render with a label", () => {
       screen.getByText(props.label);
     });

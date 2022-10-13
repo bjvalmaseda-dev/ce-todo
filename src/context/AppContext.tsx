@@ -10,11 +10,11 @@ interface IAppCtx {
 const initialState: AppState = {
   tasks: [
     {
-      content: "this is a note",
+      content: "this is #cuba a note whit a a@email.com to @bjvalmaseda ",
       id: 12,
     },
     {
-      content: "this is another note",
+      content: "this is another note http://www.link.com",
       id: 13,
     },
   ],

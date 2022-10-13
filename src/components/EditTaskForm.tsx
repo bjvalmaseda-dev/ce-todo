@@ -1,66 +1,23 @@
 import React, { useState } from "react";
-import {
-  FiMaximize2 as OpenIcon,
-  FiPlusSquare as AddIcon,
-  FiCalendar,
-  FiUnlock as PublicIcon,
-  FiLoader as NormalIcon,
-  FiStopCircle as EstimationIcon,
-  FiX,
-  FiSave,
-  FiTrash2,
-} from "react-icons/fi";
+import { FiX, FiSave, FiTrash2, FiPlusSquare as AddIcon } from "react-icons/fi";
 import useAppContext from "../hooks/useAppContext";
 import { ITask } from "../types";
 import ActionButton from "./ActionButton";
-
-type Button = {
-  label: string;
-  icon: JSX.Element;
-  container?: boolean;
-  action?: () => void;
-};
-
-const buttons: Button[] = [
-  {
-    label: "Open",
-    icon: <OpenIcon />,
-    container: true,
-  },
-  {
-    label: "Today",
-    icon: <FiCalendar />,
-  },
-  {
-    label: "Public",
-    icon: <PublicIcon />,
-  },
-  {
-    label: "Normal",
-    icon: <NormalIcon />,
-  },
-  {
-    label: "Estimation",
-    icon: <EstimationIcon />,
-  },
-  {
-    label: "Remove",
-    icon: <FiTrash2 />,
-  },
-];
+import { buttons } from "./../utils";
 
 interface Props {
   task: ITask;
 }
+
 const EditTaskForm: React.FC<Props> = ({ task }) => {
   const [editTask, setEditTask] = useState(task.content);
   const { dispatch } = useAppContext();
-
   const isEdited = task.content !== editTask;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
     isEdited &&
+      editTask &&
       dispatch({ type: "EDIT_TASK", payload: { ...task, content: editTask } });
     handleCancel();
   };
@@ -74,7 +31,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleEdit}>
       <div className="shadow-md">
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
@@ -91,11 +48,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
         <div className="border p-2 border-gray-200 bg-gray-50">
           <div className="flex py-3">
             {buttons.map((btn) => (
-              <ActionButton
-                key={`button-${btn.label}`}
-                {...btn}
-                disabled={editTask === "" ? true : false}
-              />
+              <ActionButton key={`button-${btn.label}`} {...btn} />
             ))}
             <ActionButton
               label="Remove"

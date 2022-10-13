@@ -15,3 +15,10 @@ export interface AppState {
   editingTask: number;
   creating: boolean;
 }
+
+export type TActionButton = {
+  label: string;
+  icon: JSX.Element;
+  container?: boolean;
+  action?: () => void;
+};

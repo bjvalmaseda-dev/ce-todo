@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
-import NewTaskButton from "./NewTaskButton";
+import NewTaskButton from "./../../components/NewTaskButton";
 
 describe("<NewTaskButton/>", () => {
   const actionMock = jest.fn();

@@ -1,46 +1,8 @@
 import React, { useState } from "react";
-import {
-  FiMaximize2 as OpenIcon,
-  FiPlusSquare as AddIcon,
-  FiCalendar,
-  FiUnlock as PublicIcon,
-  FiLoader as NormalIcon,
-  FiStopCircle as EstimationIcon,
-  FiPlus,
-  FiX,
-} from "react-icons/fi";
+import { FiPlusSquare as AddIcon, FiPlus, FiX } from "react-icons/fi";
 import useAppContext from "../hooks/useAppContext";
 import ActionButton from "./ActionButton";
-
-type Button = {
-  label: string;
-  icon: JSX.Element;
-  container?: boolean;
-};
-
-const buttons: Button[] = [
-  {
-    label: "Open",
-    icon: <OpenIcon />,
-    container: true,
-  },
-  {
-    label: "Today",
-    icon: <FiCalendar />,
-  },
-  {
-    label: "Public",
-    icon: <PublicIcon />,
-  },
-  {
-    label: "Normal",
-    icon: <NormalIcon />,
-  },
-  {
-    label: "Estimation",
-    icon: <EstimationIcon />,
-  },
-];
+import { buttons } from "./../utils";
 
 const TaskForm: React.FC = () => {
   const [newNote, setNewNote] = useState("");
