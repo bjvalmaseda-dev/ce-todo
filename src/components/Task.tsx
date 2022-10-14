@@ -23,12 +23,15 @@ const Task: React.FC<Props> = ({ task }) => {
       {editingTask === task.id ? (
         <EditTaskForm task={task} />
       ) : (
-        <div
-          className="inline-flex items-center w-full cursor-pointer"
-          onClick={handleClick}
-        >
+        <div className="inline-flex items-center w-full cursor-pointer">
           <input type="checkbox" className="form-checkbox h-4 w-4" />
-          <span className="ml-2 cursor-pointer">{parser(task.content)}</span>
+          <span
+            aria-label="task-item"
+            className="ml-2 cursor-pointer"
+            onClick={handleClick}
+          >
+            {parser(task.content)}
+          </span>
         </div>
       )}
     </>

@@ -1,19 +1,21 @@
 export interface ITask {
   content: string;
-  id: number;
+  id: string;
 }
 
 export type Action =
   | { type: "ADD_TASK"; payload: ITask }
-  | { type: "REMOVE_TASK"; payload: number }
+  | { type: "REMOVE_TASK"; payload: string }
   | { type: "EDIT_TASK"; payload: ITask }
-  | { type: "SET_TASK_TO_EDIT"; payload: number }
-  | { type: "SET_CREATING"; payload: boolean };
+  | { type: "SET_TASK_TO_EDIT"; payload: string | null }
+  | { type: "SET_CREATING"; payload: boolean }
+  | { type: "FETCH_TASKS"; payload: ITask[] }
+  | { type: undefined; payload: undefined };
 
 export interface AppState {
   tasks: ITask[];
-  editingTask: number;
-  creating: boolean;
+  editingTask?: string | null;
+  creating?: boolean;
 }
 
 export type TActionButton = {

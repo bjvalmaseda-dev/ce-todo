@@ -1,6 +1,6 @@
 import { AppState, Action } from "../types";
 
-export const taskReducer = (state: AppState, action: Action) => {
+export const taskReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
     case "ADD_TASK":
       return { ...state, tasks: [...state.tasks, action.payload] };
@@ -29,7 +29,12 @@ export const taskReducer = (state: AppState, action: Action) => {
       return {
         ...state,
         creating: action.payload,
-        editingTask: -1,
+        editingTask: undefined,
+      };
+    case "FETCH_TASKS":
+      return {
+        ...state,
+        tasks: action.payload,
       };
     default:
       return state;

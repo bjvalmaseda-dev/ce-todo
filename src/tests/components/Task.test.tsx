@@ -7,7 +7,7 @@ describe("<Task/>", () => {
   it("can be render a task", () => {
     const task: ITask = {
       content: "Test 1",
-      id: 2,
+      id: "2",
     };
     render(<Task task={task} />);
     expect(screen.getByText(task.content).innerHTML).toContain(task.content);
@@ -16,7 +16,7 @@ describe("<Task/>", () => {
   it("render the tags with format", () => {
     const task: ITask = {
       content: "task whit an @mention test@example.com #hashtag www.link.test",
-      id: 2,
+      id: "2",
     };
     render(<Task task={task} />);
 

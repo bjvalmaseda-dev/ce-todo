@@ -8,11 +8,11 @@ describe("<NoteList/>", () => {
     const tasks: ITask[] = [
       {
         content: "Test 1",
-        id: 2,
+        id: "2",
       },
       {
         content: "Test 2",
-        id: 3,
+        id: "3",
       },
     ];
     render(<TaskList tasks={tasks} />);

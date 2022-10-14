@@ -5,6 +5,7 @@ import { ITask } from "../types";
 import ActionButton from "./ActionButton";
 import { buttons } from "./../utils";
 import { HighlightWithinTextarea } from "react-highlight-within-textarea";
+import axios from "axios";
 interface Props {
   task: ITask;
 }
@@ -14,20 +15,32 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
   const { dispatch } = useAppContext();
   const isEdited = task.content !== editTask;
 
-  const handleEdit = (e: React.FormEvent) => {
+  const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    isEdited &&
-      editTask &&
-      dispatch({ type: "EDIT_TASK", payload: { ...task, content: editTask } });
+
+    if (isEdited && editTask) {
+      try {
+        const newTask = { ...task, content: editTask };
+        const res = await axios.put(
+          `http://localhost:3001/api/tasks/${task.id}`,
+          newTask
+        );
+        const editedTask = res.data as ITask;
+        dispatch({ type: "EDIT_TASK", payload: editedTask });
+      } catch (error) {}
+    }
     handleCancel();
   };
 
   const handleCancel = () => {
-    dispatch({ type: "SET_TASK_TO_EDIT", payload: -1 });
+    dispatch({ type: "SET_TASK_TO_EDIT", payload: null });
   };
 
-  const handleRemove = () => {
-    dispatch({ type: "REMOVE_TASK", payload: task.id });
+  const handleRemove = async () => {
+    try {
+      await axios.delete(`http://localhost:3001/api/tasks/${task.id}`);
+      dispatch({ type: "REMOVE_TASK", payload: task.id });
+    } catch (err) {}
   };
 
   return (
@@ -40,35 +53,15 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
             <AddIcon className="text-blue-500" />
-            <div className="ml-2 w-5/6">
-              <HighlightWithinTextarea
-                data-testid="test"
-                value={editTask}
-                onChange={(value) => setEditTask(value)}
-                placeholder="Type to add new task"
-                highlight={[
-                  {
-                    highlight: /#([\w-]+)/gi,
-                    className: "hashtag",
-                  },
-                  {
-                    highlight:
-                      // eslint-disable-next-line no-control-regex
-                      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/gi,
-                    className: "mail",
-                  },
-                  {
-                    highlight: /@([\w-]+)/gi,
-                    className: "mention",
-                  },
-                  {
-                    highlight:
-                      /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi,
-                    className: "link",
-                  },
-                ]}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Type to add new task"
+              className="focus:outline-none ml-2 w-5/6"
+              id="name"
+              aria-label="task-content"
+              value={editTask}
+              onChange={(e) => setEditTask(e.target.value)}
+            />
           </div>
         </div>
         <div className="border p-2 border-gray-200 bg-gray-50">
@@ -76,7 +69,9 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
             {buttons.map((btn) => (
               <ActionButton key={`button-${btn.label}`} {...btn} />
             ))}
+
             <ActionButton
+              data-testid="remove-task-button"
               label="Remove"
               icon={<FiTrash2 />}
               action={handleRemove}
@@ -86,7 +81,11 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
                 type="submit"
                 className="flex border rounded p-2 text-white mr-2 ml-auto bg-blue-500"
               >
-                {isEdited ? <FiSave /> : <FiX />}
+                {isEdited || !editTask ? (
+                  <FiSave data-testid="edit-save-button" />
+                ) : (
+                  <FiX data-testid="edit-cancel-button" />
+                )}
               </button>
             </div>
           </div>

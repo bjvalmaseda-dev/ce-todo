@@ -1,25 +1,23 @@
 import { Action, AppState, ITask } from "../../types";
-import { taskReducer } from "./../../context/Reducer";
+import { taskReducer } from "../../context/Reducer";
 
-describe("taskReducer", () => {
+describe.only("taskReducer", () => {
   const initialState: AppState = {
     tasks: [
       {
         content: "Test reducer",
-        id: 100,
+        id: "100",
       },
       {
         content: "Test reducer 2",
-        id: 2,
+        id: "2",
       },
     ],
-    editingTask: -1,
-    creating: false,
   };
 
   const task: ITask = {
     content: "task content",
-    id: 1,
+    id: "1",
   };
 
   it("ADD_TASK should be add new task", () => {
@@ -41,7 +39,7 @@ describe("taskReducer", () => {
   it("EDIT_TASK should be edited a task", () => {
     const action: Action = {
       type: "EDIT_TASK",
-      payload: { id: 100, content: "Edited content" },
+      payload: { id: "100", content: "Edited content" },
     };
     const updateState: AppState = taskReducer(initialState, action);
     expect(updateState.tasks[0].content).toContain(action.payload.content);
@@ -50,7 +48,7 @@ describe("taskReducer", () => {
   it("SET_TASK_TO_EDIT should be select a id for edit and mark creating in false", () => {
     const action: Action = {
       type: "SET_TASK_TO_EDIT",
-      payload: 100,
+      payload: "100",
     };
     const updateState: AppState = taskReducer(initialState, action);
     expect(updateState.editingTask).toBe(action.payload);
@@ -64,6 +62,29 @@ describe("taskReducer", () => {
     };
     const updateState: AppState = taskReducer(initialState, action);
     expect(updateState.creating).toBe(action.payload);
-    expect(updateState.editingTask).toBe(-1);
+    expect(updateState.editingTask).toBeUndefined();
+  });
+
+  it("FETCH_TASKS update all tasks in the state", () => {
+    const fetchTask: ITask[] = [
+      {
+        content: "Fetch task 1",
+        id: "123",
+      },
+    ];
+    const action: Action = {
+      type: "FETCH_TASKS",
+      payload: fetchTask,
+    };
+    const updateState: AppState = taskReducer(initialState, action);
+    expect(updateState.tasks).toBe(fetchTask);
+  });
+
+  it("the state should be the same if not specific an action", () => {
+    const updateState: AppState = taskReducer(initialState, {
+      type: undefined,
+      payload: undefined,
+    });
+    expect(updateState).toBe(initialState);
   });
 });

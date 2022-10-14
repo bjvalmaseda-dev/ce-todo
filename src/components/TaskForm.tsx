@@ -3,18 +3,25 @@ import { FiPlusSquare as AddIcon, FiPlus, FiX } from "react-icons/fi";
 import useAppContext from "../hooks/useAppContext";
 import ActionButton from "./ActionButton";
 import { buttons } from "./../utils";
+import axios from "axios";
+import { ITask } from "../types";
 
 const TaskForm: React.FC = () => {
   const [newNote, setNewNote] = useState("");
   const { dispatch } = useAppContext();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newNote) {
-      dispatch({
-        type: "ADD_TASK",
-        payload: { content: newNote, id: Number(Date.now()) },
-      });
+      try {
+        const newTask = { content: newNote };
+        const res = await axios.post(
+          `http://localhost:3001/api/tasks/`,
+          newTask
+        );
+        const addedTask = res.data as ITask;
+        dispatch({ type: "ADD_TASK", payload: addedTask });
+      } catch (e) {}
     }
     handleCancel();
   };
@@ -32,6 +39,7 @@ const TaskForm: React.FC = () => {
             <AddIcon className="text-blue-500" />
             <input
               type="text"
+              aria-label="task-content"
               placeholder="Type to add new task"
               className="focus:outline-none ml-2 w-5/6"
               onChange={(e) => setNewNote(e.target.value)}

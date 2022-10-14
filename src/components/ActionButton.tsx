@@ -21,11 +21,12 @@ const ActionButton: React.FC<Props> = ({
 
   return (
     <button
+      disabled={disabled}
       type="button"
       onClick={action}
       className={`${statusClass}  ${
         container ? "bg-gray-300" : null
-      } flex border rounded px-3 py-1 items-center space-x-2 mr-2`}
+      } flex border rounded px-3 py-1 items-center space-x-2 mr-2 action-button`}
     >
       {icon}
       <span className="hidden xl:block">{label}</span>
