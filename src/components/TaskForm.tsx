@@ -5,6 +5,7 @@ import ActionButton from "./ActionButton";
 import { buttons } from "./../utils";
 import axios from "axios";
 import { ITask } from "../types";
+import HighlightedInput from "./HighlightedInput";
 
 const TaskForm: React.FC = () => {
   const [newNote, setNewNote] = useState("");
@@ -37,13 +38,19 @@ const TaskForm: React.FC = () => {
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
             <AddIcon className="text-blue-500" />
-            <input
+            <HighlightedInput
+              value={newNote}
+              setValue={setNewNote}
+              ariaLabel="task-content"
+              placeholder="Type to add new task"
+            />
+            {/* <input
               type="text"
               aria-label="task-content"
               placeholder="Type to add new task"
               className="focus:outline-none ml-2 w-5/6"
               onChange={(e) => setNewNote(e.target.value)}
-            />
+            /> */}
           </div>
         </div>
         <div className="border p-2 border-gray-200 bg-gray-50">

@@ -4,8 +4,8 @@ import useAppContext from "../hooks/useAppContext";
 import { ITask } from "../types";
 import ActionButton from "./ActionButton";
 import { buttons } from "./../utils";
-import { HighlightWithinTextarea } from "react-highlight-within-textarea";
 import axios from "axios";
+import HighlightedInput from "./HighlightedInput";
 interface Props {
   task: ITask;
 }
@@ -53,14 +53,11 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
         <div className="border p-2 border-gray-200">
           <div className="flex items-center">
             <AddIcon className="text-blue-500" />
-            <input
-              type="text"
-              placeholder="Type to add new task"
-              className="focus:outline-none ml-2 w-5/6"
-              id="name"
-              aria-label="task-content"
+            <HighlightedInput
               value={editTask}
-              onChange={(e) => setEditTask(e.target.value)}
+              setValue={setEditTask}
+              ariaLabel="task-content"
+              placeholder="Type to add new task"
             />
           </div>
         </div>
