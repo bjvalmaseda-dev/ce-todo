@@ -15,7 +15,9 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/tasks");
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/tasks`
+        );
         dispatch({ type: "FETCH_TASKS", payload: res.data });
       } catch (e) {
         dispatch({ type: "SET_ERROR", payload: true });

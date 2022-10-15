@@ -22,7 +22,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
       try {
         const newTask = { ...task, content: editTask };
         const res = await axios.put(
-          `http://localhost:3001/api/tasks/${task.id}`,
+          `${process.env.API_URL}/api/tasks/${task.id}`,
           newTask
         );
         const editedTask = res.data as ITask;
@@ -40,7 +40,9 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
 
   const handleRemove = async () => {
     try {
-      await axios.delete(`http://localhost:3001/api/tasks/${task.id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/tasks/${task.id}`
+      );
       dispatch({ type: "REMOVE_TASK", payload: task.id });
     } catch (err) {}
   };

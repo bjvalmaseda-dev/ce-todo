@@ -17,7 +17,7 @@ const TaskForm: React.FC = () => {
       try {
         const newTask = { content: newNote };
         const res = await axios.post(
-          `http://localhost:3001/api/tasks/`,
+          `${process.env.REACT_APP_API_URL}/api/tasks`,
           newTask
         );
         const addedTask = res.data as ITask;
