@@ -1,4 +1,9 @@
 describe("Todo App", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000");
+    cy.request("DELETE", "http://localhost:3001/api/testing/_clean");
+  });
+
   it("can be visited", () => {
     cy.visit("http://localhost:3000");
   });
@@ -20,15 +25,23 @@ describe("Todo App", () => {
     });
 
     it("a task can be edited", () => {
-      cy.contains("this is another note").click();
-      //cy.get('[data-testid="test"]').type("Edited task");
+      const task = { content: "Task to edit" };
+      cy.request("POST", "http://localhost:3001/api/tasks", task);
+
+      cy.visit("http://localhost:3000");
+      cy.contains(task.content).click();
+      cy.get(`input[value="${task.content}"]`).clear().type("Edited task");
       cy.get('button[type="submit"]').click();
     });
 
     it("a task can be delete", () => {
-      cy.contains("this is another note").click();
+      const task = { content: "Task to delete" };
+      cy.request("POST", "http://localhost:3001/api/tasks", task);
+
+      cy.visit("http://localhost:3000");
+      cy.contains(task.content).click();
       cy.contains("Remove").click();
-      cy.get("li").should((tasks) => expect(tasks).to.have.length(1));
+      //cy.get("li").should((tasks) => expect(tasks).to.have.length(1));
     });
   });
 });

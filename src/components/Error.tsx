@@ -8,7 +8,7 @@ const Error: FC<Props> = ({ error, cleanError }) => {
     setTimeout(() => {
       cleanError();
     }, 3000);
-  }, [error]);
+  }, [cleanError]);
 
   if (!error) return null;
   return (
