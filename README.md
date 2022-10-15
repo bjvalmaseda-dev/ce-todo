@@ -13,7 +13,7 @@
     Task App for Cuban Engineer technical test (Middle Level)
     <br /> 
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>   
+    <a href="https://ce-todo-vercel.app">View Demo</a>   
   </p>
 </div>
 
@@ -61,9 +61,8 @@ This is a Task app created for the React Developer technical test for Cuban Engi
 
 ### Built With
 
-* [![Node.js][node]][node-url]
-* [![Express][express]][express-url]
-* [![Docker][docker]][docker-url]
+* [![React.js][reactjs]][reactjs-url]
+* [![TailwindCSS][tailwindcss]][tailwindcss-url]
 
 
 
@@ -137,9 +136,9 @@ Project Link: [https://github.com/bjvalmaseda-dev](https://github.com/bjvalmased
 <!-- MARKDOWN LINKS & IMAGES -->
 
 <!-- BADGES -->
-[express]: https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white
-[node]: https://img.shields.io/badge/Node%20JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
-[docker]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
+[reactjs]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[tailwindcss]: https://img.shields.io/badge/TailwindCSS-0F172A?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4  
+
 
 <!-- IMAGES -->
 [logo]: docs/ce_logo.png
@@ -152,3 +151,5 @@ Project Link: [https://github.com/bjvalmaseda-dev](https://github.com/bjvalmased
 [express-url]: https://expressjs.com/
 [node-url]: https://nodejs.org/
 [api-github-url]: http://github.com/bjvalmaseda-dev/ce-api
+[reactjs-url]: https://reactjs.org/
+[tailwindcss-url]: https://tailwindcss.com/
