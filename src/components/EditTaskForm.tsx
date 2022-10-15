@@ -22,7 +22,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
       try {
         const newTask = { ...task, content: editTask };
         const res = await axios.put(
-          `${process.env.API_URL}/api/tasks/${task.id}`,
+          `${process.env.REACT_APP_API_URL}/api/tasks/${task.id}`,
           newTask
         );
         const editedTask = res.data as ITask;

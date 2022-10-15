@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/bjvalmaseda-dev/ce-todo">
+  <a href="https://ce-todo-vercel.app">
     <img src="docs/ce_logo.png" alt="Logo" height="80">
   </a>
 
@@ -37,7 +37,6 @@
       </ul>
     </li>
     <li><a href="#testing">Testing</a></li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -54,6 +53,12 @@ This is a Task app created for the React Developer technical test for Cuban Engi
 * Update a task
 * Delete a task
 
+[![Mobile view][mobile]](https://ce-todo-vercel.app)
+[![Mobile editing view][mobile-editing]](https://ce-todo-vercel.app)
+
+[![Desktop view][desktop]](https://ce-todo-vercel.app)
+
+
 ### Built With
 
 * [![Node.js][node]][node-url]
@@ -65,13 +70,13 @@ This is a Task app created for the React Developer technical test for Cuban Engi
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To run this App locally you should follow the next steps:
 
 ### Prerequisites
 
-To run this API you need to hace installed:
-* docker and docker-compose
+To run this app you need have installed:
+* node and npm (yarn)
+
 
 ### Installation
 
@@ -83,69 +88,35 @@ To run this API you need to hace installed:
     ```sh
     $ cp .env.example .env
     ```
-3. Edit `.env` and define your enviroments variables  
+3. Edit `.env` and define your environments variables  
 
-    `DB_USER`: User for MongoDB container
+    `REACT_APP_API_URL`: url base for the api
+  
+    *To use the api provided for the developer use [https://ce-api.up.railway.app]*
+4. Run the app in development mode
+   ```sh
+   $ yarn start
+   ```
+5. To run in production you have to build the app and server in a static server
+   ```sh
+   $ yarn build
+   $ yarn global add serve
+   $ serve -s build
+   ``` 
 
-    `DB_PASSWORD`: Password for MongoDB container
 
 
 ## Testing
 
 To run test execute inside:
-```sh
-$ docker-compose api exec npm run test
-```
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-To use the API you need to know the API endpoints
-
-### API Reference
-
-##### Get all tasks
-
-```http
-  GET /api/tasks
-```
-
-##### Create task
-
-```http
-  POST /api/items/
-```
-
-| Parameter | Type     | Description                               |
-| :-------- | :------- | :---------------------------------------- |
-| `content` | `string` | **Required**. The text content for a task |
-
-##### Update task
-
-```http
-  PUT /api/items/:id
-```
-
-| Parameter | Type     | Description                                       |
-| :-------- | :------- | :------------------------------------------------ |
-| `id`      | `string` | **id**. The id for the task to update             |
-| `content` | `string` | **Required**. The text content for a task updated |
-
-##### Delete task
-
-```http
-  DELETE /api/items/:id
-```
-
-| Parameter | Type     | Description                           |
-| :-------- | :------- | :------------------------------------ |
-| `id`      | `string` | **id**. The id for the task to delete |
-
-
-
-
+  ```sh
+  $ yarn test
+  ```
+To run e2e test run
+  ```sh
+  yarn test:e2e
+  ```
+  *To make e2e test you need to run the api locally, [see how here][api-github-url]*
 
 
 <!-- LICENSE -->
@@ -172,8 +143,12 @@ Project Link: [https://github.com/bjvalmaseda-dev](https://github.com/bjvalmased
 
 <!-- IMAGES -->
 [logo]: docs/ce_logo.png
+[mobile]: docs/mobile.png
+[mobile-editing]: docs/mobile-editing.png
+[desktop]: docs/desktop.png
 
 <!-- LINKS -->
 [docker-url]: https://www.docker.com/
 [express-url]: https://expressjs.com/
 [node-url]: https://nodejs.org/
+[api-github-url]: http://github.com/bjvalmaseda-dev/ce-api
