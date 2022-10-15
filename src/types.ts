@@ -10,12 +10,14 @@ export type Action =
   | { type: "SET_TASK_TO_EDIT"; payload: string | null }
   | { type: "SET_CREATING"; payload: boolean }
   | { type: "FETCH_TASKS"; payload: ITask[] }
+  | { type: "SET_ERROR"; payload: boolean }
   | { type: undefined; payload: undefined };
 
 export interface AppState {
   tasks: ITask[];
   editingTask?: string | null;
   creating?: boolean;
+  error?: boolean;
 }
 
 export type TActionButton = {

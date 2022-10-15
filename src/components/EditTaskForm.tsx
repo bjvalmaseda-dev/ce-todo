@@ -27,7 +27,9 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
         );
         const editedTask = res.data as ITask;
         dispatch({ type: "EDIT_TASK", payload: editedTask });
-      } catch (error) {}
+      } catch (error) {
+        dispatch({ type: "SET_ERROR", payload: true });
+      }
     }
     handleCancel();
   };

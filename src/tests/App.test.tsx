@@ -39,6 +39,12 @@ describe("<App/>", () => {
     await screen.findAllByRole("listitem");
   });
 
+  it("render error when network fails and close after 3 seconds", async () => {
+    mockedAxios.get.mockRejectedValue({ message: "Something is wrong" });
+    setup();
+    await screen.findByText("Network error");
+  });
+
   describe("Add a task", () => {
     const newTask: ITask = {
       content: "Task add from test whit an email email@example.com",
@@ -55,6 +61,25 @@ describe("<App/>", () => {
       const saveButton = screen.getByText("Add");
       userEvent.click(saveButton);
       await waitFor(() => screen.findByText("email@example.com"));
+    });
+
+    it("render error message if network error", async () => {
+      mockedAxios.post.mockRejectedValue({
+        message: "Something is wrong",
+      });
+
+      const addButton = screen.getByText("Type to add new task");
+      userEvent.click(addButton);
+
+      const input = await waitFor(() => screen.findByLabelText("task-content"));
+      userEvent.type(input, newTask.content);
+      const saveButton = screen.getByText("Add");
+      userEvent.click(saveButton);
+
+      await waitFor(() => screen.findByText("Network error"));
+      const el = screen.queryByText("email@example.com");
+
+      expect(el).toBeNull();
     });
   });
 
@@ -95,6 +120,26 @@ describe("<App/>", () => {
       await waitFor(() =>
         expect(screen.queryAllByRole("listitem")).toHaveLength(tasks.length - 1)
       );
+    });
+
+    it("render error message if error network", async () => {
+      mockedAxios.put.mockRejectedValue({
+        message: "Something is wrong",
+      });
+
+      const tasksNode = await screen.findAllByRole("listitem");
+      const tasksList = tasksNode.map((node) =>
+        within(node).getByLabelText("task-item")
+      );
+      userEvent.click(tasksList[0]);
+
+      const input = (await screen.findByLabelText(
+        "task-content"
+      )) as HTMLInputElement;
+      userEvent.type(input, "Edited");
+      const buttonSave = screen.getByTestId("edit-save-button");
+      userEvent.click(buttonSave);
+      await waitFor(() => screen.findByText("Network error"));
     });
   });
 });

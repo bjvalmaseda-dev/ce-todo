@@ -22,7 +22,9 @@ const TaskForm: React.FC = () => {
         );
         const addedTask = res.data as ITask;
         dispatch({ type: "ADD_TASK", payload: addedTask });
-      } catch (e) {}
+      } catch (e) {
+        dispatch({ type: "SET_ERROR", payload: true });
+      }
     }
     handleCancel();
   };

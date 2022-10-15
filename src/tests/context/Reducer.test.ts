@@ -80,6 +80,15 @@ describe("taskReducer", () => {
     expect(updateState.tasks).toBe(fetchTask);
   });
 
+  it("SET_ERROR update app error state", () => {
+    const action: Action = {
+      type: "SET_ERROR",
+      payload: true,
+    };
+    const updateState: AppState = taskReducer(initialState, action);
+    expect(updateState.error).toBeTruthy();
+  });
+
   it("the state should be the same if not specific an action", () => {
     const updateState: AppState = taskReducer(initialState, {
       type: undefined,
