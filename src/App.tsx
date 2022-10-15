@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import HighlightedInput from "./components/HighlightedInput";
 import NewTaskButton from "./components/NewTaskButton";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";

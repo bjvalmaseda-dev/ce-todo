@@ -1,10 +1,4 @@
-import {
-  getByRole,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Context from "../context/AppContext";
 import App from "../App";
@@ -18,7 +12,7 @@ const setup = async () => {
       <App />
     </Context>
   );
-  await screen.findByText("Type to add new Task");
+  await waitFor(() => screen.findByText("Type to add new task"));
 };
 
 const tasks: ITask[] = [
@@ -46,25 +40,28 @@ describe("<App/>", () => {
   });
 
   describe("Add a task", () => {
-    const newTask: ITask = { content: "Task add from test", id: "idtask25" };
+    const newTask: ITask = {
+      content: "Task add from test whit an email email@example.com",
+      id: "idtask25",
+    };
     it("render new task form", async () => {
       mockedAxios.post.mockResolvedValue({ data: newTask });
 
       const addButton = screen.getByText("Type to add new task");
       userEvent.click(addButton);
 
-      const input = await screen.findByLabelText("task-content");
+      const input = await waitFor(() => screen.findByLabelText("task-content"));
       userEvent.type(input, newTask.content);
       const saveButton = screen.getByText("Add");
       userEvent.click(saveButton);
-      await screen.findByText(newTask.content);
+      await waitFor(() => screen.findByText("email@example.com"));
     });
   });
 
   describe("Edit a task", () => {
     it("can edit a task", async () => {
       mockedAxios.put.mockResolvedValue({
-        data: { content: "Task 1 Edited", id: "task1" },
+        data: { content: "Task 1 #mentions", id: "task1" },
       });
 
       const tasksNode = await screen.findAllByRole("listitem");
@@ -80,7 +77,7 @@ describe("<App/>", () => {
       const buttonSave = screen.getByTestId("edit-save-button");
       userEvent.click(buttonSave);
 
-      await screen.findByText("Task 1 Edited");
+      await screen.findByText("#mentions");
     });
 
     it("can remove a task", async () => {

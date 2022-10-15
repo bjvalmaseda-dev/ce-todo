@@ -6,7 +6,7 @@ import { ITask } from "../../types";
 describe("<Task/>", () => {
   it("can be render a task", () => {
     const task: ITask = {
-      content: "Test 1",
+      content: "Test",
       id: "2",
     };
     render(<Task task={task} />);
@@ -20,9 +20,9 @@ describe("<Task/>", () => {
     };
     render(<Task task={task} />);
 
-    const email = screen.getByText("Mail");
+    const email = screen.getByText("Mail 1");
     const mention = screen.getByText("@mention");
-    const link = screen.getByText("Link");
+    const link = screen.getByText("Link 1");
     const hashtag = screen.getByText("#hashtag");
 
     expect(email).toHaveClass("bg-orange-200 text-orange-500");

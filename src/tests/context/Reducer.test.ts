@@ -1,7 +1,7 @@
 import { Action, AppState, ITask } from "../../types";
 import { taskReducer } from "../../context/Reducer";
 
-describe.only("taskReducer", () => {
+describe("taskReducer", () => {
   const initialState: AppState = {
     tasks: [
       {
